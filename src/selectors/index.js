@@ -1,0 +1,1 @@
+export const userList = (state) => state.user.users;
