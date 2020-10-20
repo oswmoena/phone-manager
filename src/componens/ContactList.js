@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import ContactDetails from './ContactDetails'
-import initialContacts from '../constants/InitialContacts'
 import { useDispatch, useSelector } from 'react-redux';
 import { userList } from '../selectors';
 import { getUserListApi } from '../actions';
@@ -26,8 +25,6 @@ const ContactList = () => {
             </button>
         </div>
     }
-
-
 
     return (
         <div className="container">

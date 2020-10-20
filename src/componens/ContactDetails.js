@@ -1,21 +1,59 @@
 import React, { useState } from 'react'
 import noPhoto from '../assets/noPhoto.png'
+import Swal from 'sweetalert2'
 
 const ContactDetails = ({ contact }) => {
 
     const [buttonAppear, setButtonAppear] = useState(false);
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      });
+
+    const swalFire = () => {
+        swalWithBootstrapButtons.fire({
+            title: 'Estás seguro?',
+            text: "Estás a punto de eliminar este contacto de tu agenda",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, Elimínalo',
+            cancelButtonText: 'No, cancelar',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+              swalWithBootstrapButtons.fire(
+                'Eliminado!',
+                'El contacto ha sido eliminado!',
+                'success'
+              )
+            } 
+            // else if (
+            //   /* Read more about handling dismissals below */
+            //   result.dismiss === Swal.DismissReason.cancel
+            // ) {
+            //   swalWithBootstrapButtons.fire(
+            //     'Cancelado',
+            //     'No se ha realizado ningún cambio',
+            //     'error'
+            //   )
+            // }
+          })
+    }
 
     const imgStyles = {
         height: '260px',
         objectFit: 'cover',
     }
     return (
-        <div className="card mb-4" key={contact.id}
+        <div className="card mb-4"
             onMouseEnter={() => setButtonAppear(true)}
             onMouseLeave={() => setButtonAppear(false)}
             >
             {buttonAppear &&
-                <button className="btn btn-primary" onClick={() => (console.log('deleted!'))} >
+                <button className="btn btn-primary" onClick={() => swalFire()} >
                     X
                 </button>}
             <img
